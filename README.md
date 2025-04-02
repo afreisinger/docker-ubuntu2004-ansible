@@ -35,4 +35,4 @@ I use Docker to test my Ansible roles and playbooks on multiple OSes using CI to
 
 ## Author
 
-**Created in 2025 by [Adrian Freisinger](https://afreisinger.gitlab.io/), inspired by [Ansible for DevOps](https://www.ansiblefordevops.com/) by [Jeff Geerling](https://www.jeffgeerling.com/).**
+Created in 2025 by [Adrian Freisinger](https://afreisinger.gitlab.io/), inspired by [Ansible for DevOps](https://www.ansiblefordevops.com/) by [Jeff Geerling](https://www.jeffgeerling.com/).
