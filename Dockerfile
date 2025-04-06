@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
        systemd-cron \
        sudo \
        iproute2 \
+       curl \
+       wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
 
