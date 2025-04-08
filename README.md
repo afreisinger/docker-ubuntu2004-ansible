@@ -6,7 +6,7 @@ Ubuntu 20.04 LTS (Focal Fossa) Docker container for Ansible playbook and role te
 
 ## Tags
 
-  - `latest`: Latest stable version of Ansible.
+- `latest`: Latest stable version of Ansible.
 
 The latest tag is a lightweight image for basic validation of Ansible playbooks.
 
@@ -28,10 +28,10 @@ This image is built on Docker Hub automatically any time the upstream OS contain
     b. `docker exec --tty [container_id] env TERM=xterm ansible-playbook /path/to/ansible/playbook.yml --syntax-check`
 
 ## How to Test
+
 ```bash
 docker build -t ansible-test .
 docker run -d --name ansible-container --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro ansible-test
-docker exec ansible-container markdownlint --version
 ```
 
 ## Notes
