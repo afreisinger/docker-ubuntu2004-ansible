@@ -10,23 +10,26 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
 
+# Install base system packages
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        locales \
         apt-utils \
+        ca-certificates \
         curl \
-        sudo \
-        rsyslog \
-        systemd \
+        dnsutils \
+        gnupg \
+        gnupg-agent \
+        iproute2 \
+        iputils-ping \
+        locales \
+        net-tools \
         python3 \
         python3-pip \
-        ca-certificates \
-        iputils-ping \
-        dnsutils \
-        net-tools \
-        iproute2 \
+        rsyslog \
         software-properties-common \
+        sudo \
+        systemd \
     && locale-gen en_US.UTF-8 \
     && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 \
     && apt-get autoremove -y \
@@ -34,12 +37,15 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/share/doc && rm -rf /usr/share/man
 
-RUN sed -i "s/^\(\$ModLoad imklog\)/#\1/" /etc/rsyslog.conf
-
+# Copy the initctl shim
 COPY initctl-shim /initctl-shim
-RUN chmod +x /initctl-shim && ln -sf /initctl-shim /sbin/initctl
 
-RUN mkdir -p /etc/ansible && \
+# Post-install setup: pip, rsyslog config, initctl shim, ansible inventory, cleanups
+# hadolint ignore=DL3013
+RUN pip3 install --no-cache-dir $pip_packages && \
+    sed -i "s/^\(\$ModLoad imklog\)/#\1/" /etc/rsyslog.conf && \
+    chmod +x /initctl-shim && ln -sf /initctl-shim /sbin/initctl && \
+    mkdir -p /etc/ansible && \
     printf "[local]\nlocalhost ansible_connection=local\n" > /etc/ansible/hosts && \
     rm -f /lib/systemd/system/systemd*udev* && \
     rm -f /lib/systemd/system/getty.target
