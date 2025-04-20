@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
-LABEL maintainer="Adrián Freisinger"
+
+LABEL org.opencontainers.image.description="${DESCRIPTION}"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=${DEBIAN_FRONTEND}
