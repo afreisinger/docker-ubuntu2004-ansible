@@ -38,3 +38,5 @@ jobs:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-pat: ${{ secrets.DOCKER_PAT }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-dockerhub: true
+          publish-ghcr: true
