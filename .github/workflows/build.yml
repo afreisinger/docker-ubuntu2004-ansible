@@ -32,6 +32,9 @@ jobs:
         uses: afreisinger/build-push-action@v1.1.0
         with:
           image-name: docker-ubuntu2004-ansible
+          authors: 'Adrián Freisinger <afreisinger@gmail.com>'
+          maintainers: 'Adrián Freisinger <afreisinger@gmail.com>'
+          vendor: 'Adrián Freisinger'
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-pat: ${{ secrets.DOCKER_PAT }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
