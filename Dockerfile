@@ -23,6 +23,7 @@ RUN apt-get update \
         gnupg-agent \
         iproute2 \
         iputils-ping \
+        libpam-radius-auth \
         locales \
         net-tools \
         python3 \
