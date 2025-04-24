@@ -26,12 +26,17 @@ RUN apt-get update \
         libpam-radius-auth \
         locales \
         net-tools \
+        openssh-server \
         python3 \
         python3-pip \
         rsyslog \
         software-properties-common \
         sudo \
         systemd \
+        && mkdir /var/run/sshd \
+        && ssh-keygen -A \
+        && sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+        && echo 'root:root' | chpasswd \
     && locale-gen en_US.UTF-8 \
     && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 \
     && apt-get autoremove -y \
