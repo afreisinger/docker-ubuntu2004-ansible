@@ -41,6 +41,7 @@ RUN apt-get update \
 
 # Copy the initctl shim
 COPY initctl-shim /initctl-shim
+COPY resources/pam.d/sshd resources/pam.d/sshd
 
 # Post-install setup: pip, rsyslog config, initctl shim, ansible inventory, cleanups
 # hadolint ignore=DL3013
