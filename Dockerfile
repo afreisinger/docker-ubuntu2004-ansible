@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-LABEL org.opencontainers.image.description="${DESCRIPTION}"
-
 ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=${DEBIAN_FRONTEND}
 
@@ -19,14 +17,17 @@ RUN apt-get update \
         ca-certificates \
         curl \
         dnsutils \
+        freeradius-utils \
         gnupg \
         gnupg-agent \
         iproute2 \
         iputils-ping \
         libpam-radius-auth \
         locales \
+        netcat \
         net-tools \
         openssh-server \
+        pamtester \
         python3 \
         python3-pip \
         rsyslog \
@@ -47,6 +48,7 @@ RUN apt-get update \
 # Copy the initctl shim
 COPY initctl-shim /initctl-shim
 COPY /resources/pam.d/sshd /etc/pam.d/sshd_config
+COPY /resources/sshd_config.d/10-hardening.conf /etc/ssh/sshd_config.d/10-hardening.conf
 
 # Post-install setup: pip, rsyslog config, initctl shim, ansible inventory, cleanups
 # hadolint ignore=DL3013
@@ -59,4 +61,6 @@ RUN pip3 install --no-cache-dir $pip_packages && \
     rm -f /lib/systemd/system/getty.target
 
 VOLUME ["/sys/fs/cgroup"]
+
+EXPOSE 22
 CMD ["/lib/systemd/systemd"]
