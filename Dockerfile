@@ -39,7 +39,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc/* /usr/share/man/* /tmp/* /var/tmp/*
 
 # Copy the initctl shim
-COPY initctl-shim /initctl-shim
+COPY ./initctl-shim /initctl-shim
 
 # Post-install setup: pip, rsyslog config, initctl shim, ansible inventory, cleanups
 # hadolint ignore=DL3013
