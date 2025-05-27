@@ -18,8 +18,6 @@ RUN apt-get update \
         curl \
         dnsutils \
         freeradius-utils \
-        gnupg \
-        gnupg-agent \
         iproute2 \
         iputils-ping \
         libpam-radius-auth \
@@ -34,21 +32,14 @@ RUN apt-get update \
         software-properties-common \
         sudo \
         systemd \
-        && mkdir /var/run/sshd \
-        && ssh-keygen -A \
-        && sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-        && echo 'root:root' | chpasswd \
     && locale-gen en_US.UTF-8 \
     && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 \
     && apt-get autoremove -y \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /usr/share/doc && rm -rf /usr/share/man
+    && rm -rf /var/lib/apt/lists/* /usr/share/doc/* /usr/share/man/* /tmp/* /var/tmp/*
 
 # Copy the initctl shim
-COPY initctl-shim /initctl-shim
-COPY /resources/pam.d/sshd /etc/pam.d/sshd_config
-COPY /resources/sshd_config.d/10-hardening.conf /etc/ssh/sshd_config.d/10-hardening.conf
+COPY /resources/initctl-shim /initctl-shim
 
 # Post-install setup: pip, rsyslog config, initctl shim, ansible inventory, cleanups
 # hadolint ignore=DL3013
@@ -57,10 +48,7 @@ RUN pip3 install --no-cache-dir $pip_packages && \
     chmod +x /initctl-shim && ln -sf /initctl-shim /sbin/initctl && \
     mkdir -p /etc/ansible && \
     printf "[local]\nlocalhost ansible_connection=local\n" > /etc/ansible/hosts && \
-    rm -f /lib/systemd/system/systemd*udev* && \
-    rm -f /lib/systemd/system/getty.target
+    rm -f /lib/systemd/system/systemd*udev* /lib/systemd/system/getty.target
 
 VOLUME ["/sys/fs/cgroup"]
-
-EXPOSE 22
 CMD ["/lib/systemd/systemd"]
