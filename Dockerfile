@@ -18,6 +18,7 @@ RUN apt-get update \
         curl \
         dnsutils \
         freeradius-utils \
+        gpg \
         iproute2 \
         iputils-ping \
         libpam-radius-auth \
