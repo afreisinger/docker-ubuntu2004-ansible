@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build and Push Docker Image
-        uses: afreisinger/build-push-action@v1.1.0
+        uses: afreisinger/build-push-action@v1.3.2
         with:
           image-name: docker-ubuntu2004-ansible
           authors: 'Adrián Freisinger <afreisinger@gmail.com>'
