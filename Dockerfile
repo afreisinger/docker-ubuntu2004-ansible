@@ -19,6 +19,7 @@ RUN apt-get update \
         dnsutils \
         freeradius-utils \
         gnupg \
+        gnupg2 \
         iproute2 \
         iputils-ping \
         libpam-radius-auth \
