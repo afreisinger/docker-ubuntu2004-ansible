@@ -20,7 +20,7 @@ RUN apt-get update \
         freeradius-utils \
         gnupg \
         gnupg2 \
-        gparted \
+        parted \
         iproute2 \
         iputils-ping \
         libpam-radius-auth \
