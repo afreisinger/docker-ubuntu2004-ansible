@@ -41,6 +41,10 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc/* /usr/share/man/* /tmp/* /var/tmp/*
 
+# Copy certificates and update trust store
+COPY certs/*.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
+
 # Copy the initctl shim
 COPY initctl-shim /initctl-shim
 
