@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND=${DEBIAN_FRONTEND}
 
-ARG pip_packages="ansible"
+ARG pip_packages="ansible yamllint ansible-lint"
 
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
