@@ -35,6 +35,7 @@ RUN apt-get update \
         software-properties-common \
         sudo \
         systemd \
+        util-linux \
     && locale-gen en_US.UTF-8 \
     && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 \
     && apt-get autoremove -y \
@@ -56,6 +57,9 @@ RUN pip3 install --no-cache-dir $pip_packages && \
     mkdir -p /etc/ansible && \
     printf "[local]\nlocalhost ansible_connection=local\n" > /etc/ansible/hosts && \
     rm -f /lib/systemd/system/systemd*udev* /lib/systemd/system/getty.target
+
+RUN echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible && \
+    chmod 440 /etc/sudoers.d/ansible
 
 VOLUME ["/sys/fs/cgroup"]
 CMD ["/lib/systemd/systemd"]
